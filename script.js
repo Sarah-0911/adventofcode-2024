@@ -1,10 +1,7 @@
 // -------------------------- DAY 1 ------------------------------
 
-let leftList = []
-let rightList = []
-
 const rawList =
-[`64430  75582
+`64430  75582
 87936   20843
 98310   72035
 98142   69076
@@ -1003,23 +1000,28 @@ const rawList =
 68777   15175
 47390   75651
 94550   80760
-61539   20843`]
+61539   20843`
 
-rawList.forEach(line => {
-  const [ left, right ] = line.split(" ").map(Number)
-  leftList.push(left)
-  rightList.push(right)
+const lines = rawList.split("\n");
+
+let leftList = [];
+let rightList = [];
+
+
+lines.forEach(line => {
+  const parts = line.split(/\s+/).map(Number);
+  leftList.push(parts[0]);
+  rightList.push(parts[1]);
 })
 
-console.log(leftList);
+const totalDistance = (leftList, rightList) => {
+  let total = 0;
+  leftList.sort((a, b) => a - b)
+  rightList.sort((a, b) => a - b)
+  for (let i = 0; i < leftList.length; i++) {
+    total += Math.abs(leftList[i] - rightList[i]);
+  }
+  console.log(total);
+}
 
-
-// const totalDistance = (leftList, rightList) => {
-//   let total = 0;
-//   for (let i = 0; i < leftList.length; i++) {
-//     total += Math.abs(leftList[i] - rightList[i]);
-//   }
-//   console.log(total);
-// }
-
-// totalDistance([2, 4, 4], [3, 2, 3])
+totalDistance(leftList, rightList)
