@@ -1010,7 +1010,6 @@ lines.forEach(line => {
 
 // console.log(listOfReports);
 
-let totalSafeReport = [];
 
 const checkSafeReport = (report) => {
   let allIncreasing = true;
@@ -1018,7 +1017,7 @@ const checkSafeReport = (report) => {
 
   for (let i = 0; i < report.length - 1; i++) {
     const diff = report[i + 1] - report[i];
-    if (Math.abs(diff) < 1 || Math.abs(diff) > 3) return;
+    if (Math.abs(diff) < 1 || Math.abs(diff) > 3) return false;
 
     if (diff <= 0) {
       allIncreasing = false;
@@ -1028,9 +1027,22 @@ const checkSafeReport = (report) => {
     }
   }
 
-  if (allIncreasing || allDecreasing) {
-    totalSafeReport.push(report);
-  }
+  return allIncreasing || allDecreasing;
 }
-listOfReports.forEach(report => checkSafeReport(report));
-console.log("Total safe reports:", totalSafeReport.length);
+
+let totalSafeReport = listOfReports.filter(report => checkSafeReport(report));
+console.log(totalSafeReport.length);  // Good answer !
+
+
+const checkSafeWithDampener = (report) => {
+  if (checkSafeReport(report)) return true;
+
+  for (let i = 0; i < report.length; i++) {
+    const modifiedReport = report.slice(0, i).concat(report.slice(i + 1));
+    if (checkSafeReport(modifiedReport)) return true;
+  }
+  return false;
+}
+
+let totalUpdtated = listOfReports.filter(report => checkSafeWithDampener(report)).length;
+console.log(totalUpdtated);  // Good answer !
