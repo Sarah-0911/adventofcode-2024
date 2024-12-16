@@ -14,3 +14,27 @@ const handleInstructions = (instructions) => {
 }
 
 handleInstructions(rawData03); // Good answer !
+
+
+const updateIncorruptedMuls = (rawData) => {
+  let enabled = true;
+  let total = 0;
+
+  const instructions = rawData.match(/mul\(\d+,\d+\)|don't\(\)|do\(\)/g);
+  // console.log(instructions);
+
+  instructions.forEach(instruction => {
+    if (instruction === "do()") {
+      enabled = true;
+    } else if (instruction === "don't()") {
+      enabled = false;
+    } else if (enabled && instruction.startsWith("mul")) {
+      const [x, y] = instruction.match(/\d+/g).map(Number);
+      total += x * y;
+    }
+  })
+  console.log(total);
+}
+
+
+updateIncorruptedMuls(rawData03); // Good answer !
