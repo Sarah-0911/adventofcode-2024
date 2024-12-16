@@ -1,6 +1,4 @@
-// -------------------------- DAY 1 ------------------------------
-
-const rawList =
+export const rawData01 =
 `64430  75582
 87936   20843
 98310   72035
@@ -1001,42 +999,3 @@ const rawList =
 47390   75651
 94550   80760
 61539   20843`
-
-const lines = rawList.split("\n");
-
-let leftList = [];
-let rightList = [];
-
-
-lines.forEach(line => {
-  const parts = line.split(/\s+/).map(Number);
-  leftList.push(parts[0]);
-  rightList.push(parts[1]);
-})
-
-const totalDistance = (leftList, rightList) => {
-  let total = 0;
-  leftList.sort((a, b) => a - b)
-  rightList.sort((a, b) => a - b)
-  for (let i = 0; i < leftList.length; i++) {
-    total += Math.abs(leftList[i] - rightList[i]);
-  }
-  return total;
-}
-
-totalDistance(leftList, rightList) // Good answer !
-
-
-const totalSimilarityScore = (leftList, rightList) => {
-  let totalSimilarity = 0;
-  for (let i = 0; i < leftList.length; i++) {
-    for (let j = 0; j < rightList.length; j++) {
-      if (leftList[i] === rightList[j]) {
-        totalSimilarity += leftList[i];
-      }
-    }
-  }
-  console.log(totalSimilarity);
-}
-
-totalSimilarityScore(leftList, rightList) // Good answer !
