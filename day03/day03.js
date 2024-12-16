@@ -1,17 +1,16 @@
 import { rawData03 } from "./rawData03.js"
 
-const corruptedInstructions = rawData03.slice("")
-console.log(corruptedInstructions);
+const handleInstructions = (instructions) => {
+  const incorruptedMuls = instructions.match(/mul\(\d+,\d+\)/g);
+  // console.log(incorruptedMuls);
 
+  let total = 0;
+  incorruptedMuls.forEach(mul => {
+    const [x, y] = mul.match(/\d+/g).map(Number);
+    total += x * y;
+  })
 
-// const extractIncorruptedInstructions = (instructions) => {
-//   const instructionsToKeep = [];
-//   const x =
+  console.log(total);
+}
 
-//   if (instructions.includes(`mul(${x},${y})`)) {
-//     instructionsToKeep.push(`mul(${x},${y})`)
-//   }
-//   console.log(instructionsToKeep)
-// }
-
-// extractIncorruptedInstructions(corruptedInstructions)
+handleInstructions(rawData03); // Good answer !
