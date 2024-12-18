@@ -19,30 +19,34 @@ const findXmas = () => {
     return sequence === "XMAS" || sequence === "SAMX"
   }
 
-  // Étape 1 : Construire les colonnes
+  // Construire les colonnes
   let columns = Array.from({length: grid[0].length}, () => []); // Créer un tableau avec une length définie, contenant des sous-tableaux prêts à être remplis.
-
   grid.forEach((row) => {
     row.forEach((char, colIndex) => {
       columns[colIndex].push(char);
     });
   });
 
-  // Étape 2 : Vérifier les séquences dans les lignes (horizontal)
+  //Construire les diagonales
+  let mainDiagonals = []
+  grid.forEach((row, lineIndex) => {
+      mainDiagonals.push(row[lineIndex])
+  })
+  console.log(mainDiagonals);
+
+
+  // Vérifier les séquences dans les lignes (horizontal)
   grid.forEach((row) => {
     for (let i = 0; i < row.length - 3; i++) { // Parcours chaque tranche de 4 lettres consécutives
-      if (checkSequence(row, i)) {
-        totalXmas++;
-      }
+      if (checkSequence(row, i)) totalXmas++;
+
     }
   });
 
-  // Étape 3 : Vérifier les séquences dans les colonnes (vertical)
+  // Vérifier les séquences dans les colonnes (vertical)
   columns.forEach((col) => {
     for (let i = 0; i < col.length - 3; i++) {
-      if (checkSequence(col, i)) {
-        totalXmas++;
-      }
+      if (checkSequence(col, i)) totalXmas++;
     }
   });
 
