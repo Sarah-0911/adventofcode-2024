@@ -28,11 +28,27 @@ const findXmas = () => {
   });
 
   //Construire les diagonales
-  let mainDiagonals = []
-  grid.forEach((row, lineIndex) => {
-      mainDiagonals.push(row[lineIndex])
-  })
-  console.log(mainDiagonals);
+  const fillDiagonals = () => {
+    let mainDiagonals = Array.from({length: grid[0].length - 3}, () => []);
+
+    grid.forEach(row => {
+      for(let i = 0; i < row.length - 3; i++) {
+        const x = row[i];
+        console.log(x);
+      }
+    });
+    columns.forEach(column => {
+      for(let i = 0; i < column.length; i++) {
+        const y = column[i];
+        console.log(y);
+      }
+    })
+    console.log(mainDiagonals);
+  }
+
+  fillDiagonals();
+
+
 
 
   // Vérifier les séquences dans les lignes (horizontal)
