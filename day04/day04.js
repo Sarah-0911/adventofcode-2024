@@ -3,10 +3,10 @@ import { rawData04 } from "./rawData04.js"
 // const grid = rawData04.split("\n").map(row => row.split(''));
 
 const grid = [
-['M', 'M', 'M', 'S', 'A', 'M', 'X', 'X', 'M', 'M'],
-['M', 'S', 'A', 'M', 'X', 'M', 'S', 'M', 'S', 'A'],
-['A', 'M', 'X', 'S', 'X', 'M', 'A', 'A', 'M', 'M'],
-['M', 'S', 'A', 'M', 'A', 'S', 'M', 'S', 'M', 'X']
+['M', 'X', 'M', 'A', 'S', 'M', 'X', 'X', 'M', 'M'],
+['M', 'S', 'A', 'A', 'X', 'M', 'S', 'M', 'S', 'A'],
+['A', 'M', 'X', 'M', 'X', 'M', 'A', 'A', 'M', 'M'],
+['M', 'S', 'A', 'X', 'A', 'S', 'M', 'S', 'M', 'X']
 ]
 
 // console.log(grid);
@@ -26,6 +26,8 @@ const findXmas = () => {
       columns[colIndex].push(char);
     });
   });
+
+
 
   //Construire les diagonales
   const fillDiagonals = () => {
@@ -52,12 +54,12 @@ const findXmas = () => {
 
 
   // Vérifier les séquences dans les lignes (horizontal)
-  grid.forEach((row) => {
-    for (let i = 0; i < row.length - 3; i++) { // Parcours chaque tranche de 4 lettres consécutives
-      if (checkSequence(row, i)) totalXmas++;
+  // grid.forEach((row) => {
+  //   for (let i = 0; i < row.length - 3; i++) { // Parcours chaque tranche de 4 lettres consécutives
+  //     if (checkSequence(row, i)) totalXmas++;
 
-    }
-  });
+  //   }
+  // });
 
   // Vérifier les séquences dans les colonnes (vertical)
   columns.forEach((col) => {
