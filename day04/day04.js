@@ -1,7 +1,7 @@
 import { rawData04 } from "./rawData04.js"
 
-const grid = `
-.M.S......
+const grid =
+`.M.S......
 ..A..MSMS.
 .M.S.MAA..
 ..A.ASMSM.
@@ -10,24 +10,15 @@ const grid = `
 S.S.S.S.S.
 .A.A.A.A..
 M.M.M.M.M.
-..........`.split("\n").map(row => row.split(''))
+..........`.trim().split("\n").map(row => row.split(''))
 
 const input = rawData04.split("\n").map(row => row.split(''));
-
-// const grid = [
-// ['M', 'X', 'M', 'A', 'S', 'M', 'X', 'X', 'M', 'M'],
-// ['M', 'S', 'A', 'A', 'X', 'M', 'S', 'M', 'S', 'A'],
-// ['A', 'M', 'X', 'M', 'X', 'M', 'A', 'A', 'M', 'M'],
-// ['M', 'S', 'A', 'X', 'S', 'A', 'M', 'X', 'M', 'X']
-// ]
-
-// console.log(grid);
 
 
 const findXmas = (grid) => {
   let total = 0;
 
-  //1ere partie
+  //1ere partie ----------------------------------------------------------------
 
   const checkRight = (x, y) => {
     return  x + 3 < grid[0].length && y < grid.length &&
@@ -69,57 +60,60 @@ const findXmas = (grid) => {
      grid[y - 1][x + 1] === 'M' && grid[y - 2][x + 2] === 'A' && grid[y - 3][x + 3] === 'S';
   }
 
-  // grid.forEach((row, y) => {
-  //   row.forEach((char, x) => {
-  //     if (char === 'X') {
-  //       if (checkRight(x, y)) total++;
-  //       if (checkLeft(x, y)) total++;
-  //       if (checkDown(x, y)) total++;
-  //       if (checkUp(x, y)) total++;
-  //       if (checkRightDown(x, y)) total++;
-  //       if (checkLeftUp(x, y)) total++;
-  //       if (checkLeftDown(x, y)) total++;
-  //       if (checkRightUp(x, y)) total++;
-  //     }
-  //   })
-  // })
-
-
-  //2e partie
-
-  const rightDown = (x, y) => {
-    return x - 1 >= 0 && y - 1 >= 0 && y + 1 < grid.length &&
-     grid[y - 1][x - 1] === "M" && grid[y + 1][x + 1] === "S";
-  };
-
-  const leftDown = (x, y) => {
-    return x + 1 < grid[0].length && y - 1 >= 0 && y + 1 < grid.length &&
-     grid[y - 1][x + 1] === "M" && grid[y + 1][x - 1] === "S";
-  };
-
-  const rightUp = (x, y) => {
-    return  x - 1 < grid[0].length && y + 1 < grid.length &&
-     grid[y + 1][x - 1] === "M" && grid[y - 1][x + 1] === "S";
-  };
-
-  const leftUp = (x, y) => {
-    return y - 1 >= 0 && x + 1 < grid[0].length &&
-     grid[y + 1][x + 1] === "M" && grid[y - 1][x - 1] === "S";
-  };
-
-
   grid.forEach((row, y) => {
     row.forEach((char, x) => {
-      if (char === "A") {
-        // if (rightDown(x, y) && leftDown(x, y)) total++;
-        // if (rightUp(x, y) && leftUp(x, y)) total++;
-        if (leftDown(x, y)) total++;
+      if (char === 'X') {
+        if (checkRight(x, y)) total++;
+        if (checkLeft(x, y)) total++;
+        if (checkDown(x, y)) total++;
+        if (checkUp(x, y)) total++;
+        if (checkRightDown(x, y)) total++;
+        if (checkLeftUp(x, y)) total++;
+        if (checkLeftDown(x, y)) total++;
+        if (checkRightUp(x, y)) total++;
       }
     })
   })
 
   console.log(total);
 
+
+  //2e partie ------------------------------------------------------------------
+
+  const rightDown = (x, y) => {
+    return x - 1 >= 0 && y - 1 >= 0 && grid[y - 1][x - 1] === "M" &&
+     x + 1 < grid[0].length && y + 1 < grid.length && grid[y + 1][x + 1] === "S";
+  };
+
+  const leftDown = (x, y) => {
+    return x + 1 < grid[0].length && y - 1 >= 0 && grid[y - 1][x + 1] === "M" &&
+     x - 1 >= 0 && y + 1 < grid.length && grid[y + 1][x - 1] === "S";
+  };
+
+  const rightUp = (x, y) => {
+    return x - 1 >= 0 && y + 1 < grid.length && grid[y + 1][x - 1] === "M" &&
+     x + 1 < grid[0].length && y - 1 >= 0 && grid[y - 1][x + 1] === "S";
+  };
+
+  const leftUp = (x, y) => {
+     return x + 1 < grid[0].length && y + 1 < grid.length && grid[y + 1][x + 1] === "M" &&
+      x - 1 >= 0 && y - 1 >= 0 && grid[y - 1][x - 1] === "S";
+  };
+
+  let totalCrosses = 0;
+
+  grid.forEach((row, y) => {
+    row.forEach((char, x) => {
+      if (char === "A") {
+        if (rightDown(x, y) && leftDown(x, y)) totalCrosses++;
+        if (rightUp(x, y) && leftUp(x, y)) totalCrosses++;
+        if (leftDown(x, y) && leftUp(x, y)) totalCrosses++;
+        if (rightUp(x, y) && rightDown(x, y)) totalCrosses++;
+      }
+    })
+  })
+
+  console.log(totalCrosses);
 }
 
-findXmas(grid);
+findXmas(input);
